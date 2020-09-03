@@ -1,33 +1,43 @@
 package ratz.springframework.recipeproject.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ratz.springframework.recipeproject.domain.Category;
-import ratz.springframework.recipeproject.domain.UnitOfMeasure;
-import ratz.springframework.recipeproject.repositories.CategoryRepository;
-import ratz.springframework.recipeproject.repositories.UnitOfMeasureRepository;
-
-import java.util.Optional;
+import ratz.springframework.recipeproject.services.RecipeService;
 
 @Controller
 public class IndexController {
 
-    private CategoryRepository categoryRepository;
+
+    // OLD EXAMPLE WITHOUT RECIPEBOOTSTRAP
+
+    /* private CategoryRepository categoryRepository;
     private UnitOfMeasureRepository unitOfMeasureRepository;
 
     public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
         this.categoryRepository = categoryRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
+    } */
+
+    private final RecipeService recipeService;
+
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @RequestMapping({"", "/", "index"})
-    public String getIndexPage() {
+    public String getIndexPage(Model model) {
 
-        Optional<Category> categoryOptional = categoryRepository.findByDescription("American");
+
+        // OLD EXAMPLE WITHOUT RECIPEBOOTSTRAP
+
+        /*Optional<Category> categoryOptional = categoryRepository.findByDescription("American");
         Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findByUom("Teaspoon");
 
         System.out.println("Cat Id is : " + categoryOptional.get().getId());
-        System.out.println("UOM ID is : " + unitOfMeasureOptional.get().getId());
+        System.out.println("UOM ID is : " + unitOfMeasureOptional.get().getId());*/
+
+        model.addAttribute("recipes", recipeService.getRecipes());
 
         return "index";
     }

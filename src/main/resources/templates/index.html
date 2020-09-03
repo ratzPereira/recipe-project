@@ -8,5 +8,16 @@
 
 <h1 th:text="Index">Recipe Page Index!</h1>
 
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+    </tr>
+    <tr th:each="recipe : ${recipes}">
+        <td th:text="${recipe.getId()}">123</td>
+        <td th:text="${recipe.description}"> Tasty</td>
+    </tr>
+</table>
+
 </body>
 </html>
