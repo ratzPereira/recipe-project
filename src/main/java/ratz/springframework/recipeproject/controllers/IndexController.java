@@ -11,7 +11,7 @@ import ratz.springframework.recipeproject.services.RecipeService;
 public class IndexController {
 
 
-    // OLD EXAMPLE WITHOUT RECIPEBOOTSTRAP
+    // OLD EXAMPLE WITHOUT RECIPE_BOOTSTRAP
 
     /* private CategoryRepository categoryRepository;
     private UnitOfMeasureRepository unitOfMeasureRepository;
@@ -31,7 +31,7 @@ public class IndexController {
     public String getIndexPage(Model model) {
 
 
-        // OLD EXAMPLE WITHOUT RECIPEBOOTSTRAP
+        // OLD EXAMPLE WITHOUT RECIPE_BOOTSTRAP
 
         /*Optional<Category> categoryOptional = categoryRepository.findByDescription("American");
         Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findByUom("Teaspoon");
