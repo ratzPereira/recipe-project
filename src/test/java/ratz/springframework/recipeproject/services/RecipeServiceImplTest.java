@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import ratz.springframework.recipeproject.converters.RecipeCommandToRecipe;
+import ratz.springframework.recipeproject.converters.RecipeToRecipeCommand;
 import ratz.springframework.recipeproject.domain.Recipe;
 import ratz.springframework.recipeproject.repositories.RecipeRepository;
 
@@ -19,6 +21,13 @@ class RecipeServiceImplTest {
 
     @Mock
     RecipeRepository recipeRepository;
+
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
 
     @BeforeEach
     void setUp() {
