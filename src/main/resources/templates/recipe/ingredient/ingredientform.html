@@ -20,7 +20,7 @@
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <!--/*@thymesVar id="ingredient" type="ratz.springframework.commands.IngredientCommand"*/-->
+            <!--/*@thymesVar id="ingredient" type="ratz.springframework.recipeproject.commands.IngredientCommand"*/-->
             <form  th:object="${ingredient}" th:action="@{'/recipe/' + ${ingredient.getRecipeId()} + '/ingredient'} " method="post">
                 <input type="hidden" th:field="*{id}"/>
                 <div class="pannel-group">
@@ -44,7 +44,7 @@
 
                                 <div class="col-md-3 form-group">
                                     <label>UOM:</label>
-                                    <!--/*@thymesVar id="ingredient" type="ratz.springframework.commands.IngredientCommand"*/-->
+                                    <!--/*@thymesVar id="ingredient" type="ratz.springframework.recipeproject.commands.IngredientCommand"*/-->
                                     <select class="form-control" name="uom.id">
                                         <option th:each="uomEach : ${uomList}"
                                                 th:value="${uomEach.id}"
