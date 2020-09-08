@@ -99,7 +99,7 @@
 
                                     <li th:each="ingredient : ${recipe.ingredients}"
                                         th:text="${ ingredient.getAmount() + ' : ' + ingredient.uom.getUom()
-                                   + ' of  '  + ' -- ' + ingredient.getDescription()}">1 Teaspoon of Sugar</li>
+                                   + ' of  '  + ' -- ' + ingredient.getUom().uom}">1 Teaspoon of Sugar</li>
                                 </ul>
                             </div>
                         </div>
