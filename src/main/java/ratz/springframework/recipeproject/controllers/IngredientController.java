@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ratz.springframework.recipeproject.commands.IngredientCommand;
+import ratz.springframework.recipeproject.commands.RecipeCommand;
+import ratz.springframework.recipeproject.commands.UnitOfMeasureCommand;
 import ratz.springframework.recipeproject.services.IngredientService;
 import ratz.springframework.recipeproject.services.RecipeService;
 import ratz.springframework.recipeproject.services.UnitOfMeasureService;
@@ -70,6 +72,26 @@ public class IngredientController {
 
         return "redirect:/recipe/" + savedCommand.getRecipeId() + "/ingredient/" +
                 savedCommand.getId() + "/show";
+    }
+
+    @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/new")
+    private String newRecipe(@PathVariable String recipeId, Model model){
+
+        //make sure we have a good id
+        RecipeCommand recipeCommand = recipeService.findCommandById(Integer.valueOf(recipeId));
+
+        //need to return back parent id for hidden form property
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Integer.valueOf(recipeId));
+        model.addAttribute("ingredient" , ingredientCommand);
+
+        //init uom
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList" , unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientform";
     }
 
 }
