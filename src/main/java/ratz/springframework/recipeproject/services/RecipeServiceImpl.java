@@ -7,6 +7,7 @@ import ratz.springframework.recipeproject.commands.RecipeCommand;
 import ratz.springframework.recipeproject.converters.RecipeCommandToRecipe;
 import ratz.springframework.recipeproject.converters.RecipeToRecipeCommand;
 import ratz.springframework.recipeproject.domain.Recipe;
+import ratz.springframework.recipeproject.exceptions.NotFoundException;
 import ratz.springframework.recipeproject.repositories.RecipeRepository;
 
 import java.util.HashSet;
@@ -43,7 +44,7 @@ public class RecipeServiceImpl implements RecipeService {
         Optional<Recipe> recipeOptional = recipeRepository.findById(integer);
 
         if (!recipeOptional.isPresent()) {
-            throw new RuntimeException("Recipe Not Found!");
+            throw new NotFoundException("Recipe Not Found!");
         }
 
         return recipeOptional.get();
