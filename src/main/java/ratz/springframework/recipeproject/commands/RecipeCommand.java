@@ -3,6 +3,7 @@ package ratz.springframework.recipeproject.commands;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.URL;
 import ratz.springframework.recipeproject.domain.Difficulty;
 
 import javax.validation.constraints.Max;
@@ -36,11 +37,12 @@ public class RecipeCommand {
     private Integer servings;
     private String source;
 
-
+    @URL
     private String url;
 
     @NotBlank
     private String directions;
+
     private Set<IngredientCommand> ingredients = new HashSet<>();
     private Byte[] image;
     private Difficulty difficulty;
