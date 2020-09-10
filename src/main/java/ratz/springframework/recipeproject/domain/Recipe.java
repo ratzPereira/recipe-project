@@ -4,6 +4,8 @@ package ratz.springframework.recipeproject.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +18,9 @@ public class Recipe {
     private Integer id;
 
     private String description;
+
+    @Max(90)
+    @Min(1)
     private Integer prepTime;
     private Integer cookTime;
     private Integer servings;

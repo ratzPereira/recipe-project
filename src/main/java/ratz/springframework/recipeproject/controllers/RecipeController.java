@@ -4,16 +4,22 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ratz.springframework.recipeproject.commands.RecipeCommand;
 import ratz.springframework.recipeproject.exceptions.NotFoundException;
 import ratz.springframework.recipeproject.services.RecipeService;
 
+import javax.validation.Valid;
+
 @Slf4j
 @Controller
 public class RecipeController {
 
+    private static final String RECIPE_RECIPEFORM_URL = "recipe/recipeform";
+
+    @Valid
     public final RecipeService recipeService;
 
     public RecipeController(RecipeService recipeService) {
@@ -39,17 +45,23 @@ public class RecipeController {
         return "recipe/recipeform";
     }
 
-    @PostMapping
-    @RequestMapping("recipe")
-    public String saveOrUpdate(@ModelAttribute RecipeCommand command){
+    @PostMapping("recipe")
+    public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand command, BindingResult bindingResult){
 
+        if(bindingResult.hasErrors()){
+
+            bindingResult.getAllErrors().forEach(objectError -> log.debug(objectError.toString()));
+
+            System.out.println("im here");
+            return "recipe/recipeform";
+        }
+        System.out.println("Nao entrei no IF");
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
 
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{id}/update")
+    @GetMapping("/recipe/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model){
 
         model.addAttribute("recipe", recipeService.findCommandById(Integer.valueOf(id)));
@@ -80,19 +92,7 @@ public class RecipeController {
 
         return modelAndView;
     }
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(NumberFormatException.class)
-    public ModelAndView handleNumberFormat(Exception exeption){
 
-        log.error("Handling Number Format exception");
-        log.error(exeption.getMessage());
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("400error");
-        modelAndView.addObject("exception" , exeption);
-
-
-        return modelAndView;
-    }
 }
 
 
